@@ -1,0 +1,59 @@
+# src\OC\PlatformBundle\Resources\config\routing.yml
+
+# s'il y a une erreur : error does not contain valid yaml,
+# verifier l'ajout d'accent(s) car il peut y avoir un probleme avec utf-8
+# verifier aussi que l'alinea est bien de quatre carreaux
+
+oc_platform_home:
+    path:      /{page}
+    defaults: { _controller: OCPlatformBundle:Advert:index, page: 1 }
+    requirements:
+        page: \d*
+
+oc_platform_view:
+    path:     /advert/{id}
+    defaults: { _controller: OCPlatformBundle:Advert:view }
+    requirements:
+        id: \d+
+
+oc_platform_add:
+    path:     /add
+    defaults: { _controller: OCPlatformBundle:Advert:add }
+
+oc_platform_edit:
+    path:     /edit/{id}
+    defaults: { _controller: OCPlatformBundle:Advert:edit }
+    requirements:
+        id: \d+
+
+oc_platform_delete:
+    path:     /delete/{id}
+    defaults: { _controller: OCPlatformBundle:Advert:delete }
+    requirements:
+        id: \d+
+
+
+
+# routes d'exemples et tests
+
+oc_platform_tuto:
+    path:     /tutoriel/{id}
+    defaults: { _controller: OCPlatformBundle:Advert:tuto }
+    requirements:
+        id: \d+
+
+# parametres systemes : _format, _locale (pour la langue), _controller
+oc_platform_view_slug:
+    path:     /{year}/{slug}.{_format}/{age}
+    defaults:
+        _controller: OCPlatformBundle:Advert:viewSlug
+        format:      html
+        # pour rendre le parametre format facultatif
+    requirements:
+        year: \d{4}
+        format: html|xml
+        age: \d+
+
+oc_platform_test2:
+    path:    /test2
+    defaults: { _controller: OCPlatformBundle:Advert:test2 }

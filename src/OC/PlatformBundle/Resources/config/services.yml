@@ -1,0 +1,43 @@
+services:
+    oc_platform.antispam:
+        class: OC\PlatformBundle\Antispam\OCAntispam
+        arguments: 
+            # le service Mailer (pour envoyer des e-mails)
+            - "@mailer" 
+            # le parametre local (pour recuperer la langue, definit dans 
+            #le fichier app/config/parameters.yml)
+            - %locale%
+            #le nombre 50 (qu'importe son utilite !)
+            - 50
+
+parameters:
+    mon_parametre: ma_valeur
+
+services:
+    oc_platform.email.application_mailer:
+        class: OC\PlatformBundle\Email\ApplicationMailer
+        arguments:
+            - "@mailer"
+
+services:
+    oc_platform.doctrine_listener.application_creation:
+        class: OC\PlatformBundle\DoctrineListener\ApplicationCreationListener
+        arguments:
+            - "@oc_platform.email.application_mailer"
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+
+services:
+    # Le nom du service
+    oc_platform.validator.antiflood:  
+        # La classe du service, ici notre validateur déjà créé
+        class: OC\PlatformBundle\Validator\AntifloodValidator
+        # Les données qu'on injecte au service : la requête et l'EntityManager
+        arguments: ["@request_stack", "@doctrine.orm.entity_manager"]
+        tags: 
+            - { name: validator.constraint_validator, alias: oc_platform_antiflood }
+            # C'est avec l'alias qu'on retrouvera le service
+
+#    oc_platform.example:
+#        class: OC\PlatformBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

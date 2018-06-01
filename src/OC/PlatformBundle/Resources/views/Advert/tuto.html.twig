@@ -1,0 +1,25 @@
+{# src\OC\PlatformBundle\Resources\views\Advert\tuto.html.twig #}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Affichage de l'annonce {{ id }}</title>
+    </head>
+    <body>
+        <h1>Hello Annonce n°{{ id }} !</h1>
+        <p>Tag éventuel : {{ tag }}</p>
+        <!-- 
+            fonction path pour générer une url relative
+            fonction url pour générer une url absolue
+            cela ne marche que si la variable advert_id est disponible
+        
+        <a href="{#{{ path('oc_platform_view', { 'id': advert_id }) }}">
+            Lien vers l'annonce d'id {{ advert_id }}
+        </a>
+        <br/>
+        <a href="{{ url('oc_platform_view', { 'id': advert_id }) }}">
+            Lien vers l'annonce d'id {{ advert_id }}#}
+        </a>
+        -->
+    </body>
+</html>
